@@ -1,0 +1,108 @@
+# Portuguese (Brazil) translations for the luizsilva.fyi site UI chrome.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-14 20:07+0000\n"
+"PO-Revision-Date: 2026-08-13 18:03+0000\n"
+"Last-Translator: Luiz Silva <luiz.g.s.silva@gmail.com>\n"
+"Language-Team: Portuguese (Brazil)\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: blog/templates/blog/post_detail.html:20
+msgid "Back to blog"
+msgstr "Voltar ao blog"
+
+#: blog/templates/blog/post_list.html:4 blog/templates/blog/post_list.html:8
+#: core/templates/base.html:29
+msgid "Blog"
+msgstr "Blog"
+
+#: blog/templates/blog/post_list.html:20
+msgid "Read more"
+msgstr "Leia mais"
+
+#: blog/templates/blog/post_list.html:24
+msgid "No posts yet — check back soon."
+msgstr "Ainda não há posts — volte em breve."
+
+#: blog/templates/blog/post_list.html:31
+msgid "Previous"
+msgstr "Anterior"
+
+#: blog/templates/blog/post_list.html:33
+#, python-format
+msgid "Page %(current)s of %(total)s"
+msgstr "Página %(current)s de %(total)s"
+
+#: blog/templates/blog/post_list.html:35
+msgid "Next"
+msgstr "Próxima"
+
+#: core/templates/base.html:18
+msgid "Menu"
+msgstr "Menu"
+
+#: core/templates/base.html:25
+msgid "Home"
+msgstr "Início"
+
+#: core/templates/base.html:33
+#: portfolio/templates/portfolio/project_list.html:4
+#: portfolio/templates/portfolio/project_list.html:8
+msgid "Portfolio"
+msgstr "Portfólio"
+
+#: core/templates/base.html:58
+msgid "Get in touch:"
+msgstr "Entre em contato:"
+
+#: core/templates/base.html:69
+msgid ""
+"This site's code was partly written with AI assistance — but every "
+"experience described here is real and written by Luiz Silva himself. Built "
+"with Django and Python, drawing on 20+ years of hobbying development "
+"experience, and coordinated with help from Claude (Anthropic)."
+msgstr ""
+"O código deste site foi parcialmente escrito com ajuda de IA — mas todas as "
+"experiências descritas aqui são reais e escritas pelo próprio Luiz Silva. "
+"Desenvolvido com Django e Python, com conhecimento consolidado ao longo de "
+"mais de 20 anos de programação como hobby, e coordenado com ajuda do Claude "
+"(Anthropic)."
+
+#: portfolio/templates/portfolio/project_list.html:20
+msgid "View project"
+msgstr "Ver projeto"
+
+#: portfolio/templates/portfolio/project_list.html:24
+msgid "Projects coming soon."
+msgstr "Projetos em breve."
+
+#: timeline/templates/timeline/home.html:10
+msgid "About"
+msgstr "Sobre"
+
+#: timeline/templates/timeline/home.html:22
+msgid "Experience timeline"
+msgstr ""
+
+#: timeline/templates/timeline/home.html:33
+#: timeline/templates/timeline/home.html:79
+msgid "Present"
+msgstr "Atual"
+
+#: timeline/templates/timeline/home.html:52
+msgid "Document"
+msgstr "Documento"
+
+#: timeline/templates/timeline/home.html:53
+msgid "Image"
+msgstr "Imagem"
+
+#: timeline/templates/timeline/home.html:74
+msgid "Education"
+msgstr "Formação"

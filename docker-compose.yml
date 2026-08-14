@@ -1,0 +1,85 @@
+networks:
+  edge:
+    external: true
+  internal:
+
+services:
+  web:
+    build: .
+    container_name: about_web
+    restart: unless-stopped
+    volumes:
+      - .:/code
+    environment:
+      - DEBUG=${DEBUG:-False}
+      - SECRET_KEY=${SECRET_KEY}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-about.luizsilva.fyi,about.internal.luizsilva.fyi}
+      - DB_HOST=db
+      - DB_NAME=${DB_NAME:-postgres}
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - REDIS_URL=redis://redis:6379/1
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - internal
+      - edge
+    labels:
+      - "traefik.enable=true"
+      # Public router (about.luizsilva.fyi) — cert already issued, kept ready
+      # for when a Cloudflare Tunnel ingress rule makes this publicly live.
+      - "traefik.http.routers.about.rule=Host(`about.luizsilva.fyi`)"
+      - "traefik.http.routers.about.entrypoints=websecure"
+      - "traefik.http.routers.about.tls.certresolver=cloudflare"
+      - "traefik.http.routers.about.service=about"
+      # Tailscale-only router, same pattern as grafana.internal/portainer.internal —
+      # reachable now because Tailscale's Split DNS already forwards
+      # *.internal.luizsilva.fyi queries to the internal CoreDNS resolver.
+      - "traefik.http.routers.about-internal.rule=Host(`about.internal.luizsilva.fyi`)"
+      - "traefik.http.routers.about-internal.entrypoints=websecure"
+      - "traefik.http.routers.about-internal.tls.certresolver=cloudflare"
+      - "traefik.http.routers.about-internal.service=about"
+      - "traefik.http.services.about.loadbalancer.server.port=8000"
+      # Plain-HTTP requests (e.g. a URL typed/clicked without "https://", which
+      # is what triggers the browser's "Not Secure" warning) get redirected to
+      # HTTPS instead of hitting an unencrypted 404.
+      - "traefik.http.routers.about-http.rule=Host(`about.luizsilva.fyi`) || Host(`about.internal.luizsilva.fyi`)"
+      - "traefik.http.routers.about-http.entrypoints=web"
+      - "traefik.http.routers.about-http.middlewares=about-redirect-https"
+      - "traefik.http.middlewares.about-redirect-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.about-redirect-https.redirectscheme.permanent=true"
+      - "traefik.docker.network=edge"
+
+  db:
+    image: postgres:16-alpine
+    container_name: about_db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${DB_NAME:-postgres}
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+
+  redis:
+    image: redis:7-alpine
+    container_name: about_redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    networks:
+      - internal
+
+volumes:
+  postgres_data:
+  redis_data:

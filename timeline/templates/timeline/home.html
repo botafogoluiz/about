@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}Luiz Silva{% endblock %}
+
+{% block content %}
+{% if profile %}
+<section class="intro-section">
+    <div class="intro-content">
+        <h2 class="intro-title">{% translate "About" %}</h2>
+        {% if profile.photo %}
+            <img src="{{ profile.photo.url }}" alt="Luiz Silva" class="intro-photo">
+        {% endif %}
+        {{ profile.summary|linebreaks }}
+    </div>
+</section>
+{% endif %}
+
+<div id="bg-layer-a" class="timeline-bg-layer"></div>
+<div id="bg-layer-b" class="timeline-bg-layer"></div>
+
+<nav class="timeline-dots" aria-label="{% translate "Experience timeline" %}">
+    {% for experience in experiences %}
+        <a href="#experience-{{ forloop.counter }}" class="timeline-dot" title="{{ experience.title }}"></a>
+    {% endfor %}
+</nav>
+
+{% for experience in experiences %}
+<section id="experience-{{ forloop.counter }}" class="timeline-section" data-bg="{{ experience.background_image.url }}" data-index="{{ forloop.counter0 }}">
+    <div class="timeline-scrim">
+        <p class="experience-meta">
+            {{ experience.start_date|date:"M Y" }}
+            {% if experience.end_date %}–{{ experience.end_date|date:"M Y" }}{% else %}–{% translate "Present" %}{% endif %}
+        </p>
+        <h2>{{ experience.title }}</h2>
+        <p class="company-line">
+            {% if experience.redact_company_name %}
+                <span class="company-name">{{ experience.company_description }}</span>
+            {% else %}
+                {% if experience.company_website %}
+                    <a class="company-name" href="{{ experience.company_website }}" target="_blank" rel="noopener">{{ experience.company_name }}</a>
+                {% else %}
+                    <span class="company-name">{{ experience.company_name }}</span>
+                {% endif %}
+                {% if experience.company_description %}
+                    <span class="company-description">{{ experience.company_description }}</span>
+                {% endif %}
+            {% endif %}
+        </p>
+        <div>{{ experience.description|linebreaks }}</div>
+        {% if experience.evidence.all %}
+        {% translate "Document" as document_label %}
+        {% translate "Image" as image_label %}
+        <ul class="evidence-list">
+            {% for item in experience.evidence.all %}
+            <li>
+                {% if item.evidence_type == "link" and item.link %}
+                    <a href="{{ item.link }}" target="_blank" rel="noopener">{{ item.caption|default:item.link }}</a>
+                {% elif item.evidence_type == "document" and item.document %}
+                    <a href="{{ item.document.url }}" target="_blank" rel="noopener">{{ item.caption|default:document_label }}</a>
+                {% elif item.image %}
+                    <a href="{{ item.image.url }}" target="_blank" rel="noopener">{{ item.caption|default:image_label }}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</section>
+{% endfor %}
+
+<section class="education-section">
+    <div class="education-list">
+        <h2>{% translate "Education" %}</h2>
+        {% for edu in education %}
+        <div class="education-item">
+            <p class="experience-meta">
+                {{ edu.start_date|date:"M Y" }}
+                {% if edu.end_date %}–{{ edu.end_date|date:"M Y" }}{% else %}–{% translate "Present" %}{% endif %}
+            </p>
+            <h3 class="edu-title">{{ edu.degree }}</h3>
+            <p class="edu-field">{{ edu.field_of_study }}</p>
+            <p class="edu-institution">{{ edu.institution }}</p>
+            {% if edu.description %}<p>{{ edu.description }}</p>{% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_body %}
+<script src="{% static 'timeline/js/scrollytelling.js' %}" defer></script>
+{% endblock %}

@@ -1,0 +1,567 @@
+/* ---- Design tokens ---- */
+:root {
+    /* A single light-grey background used everywhere (header, cards, sections) —
+       deliberately not white. Cards are distinguished only by their border. */
+    --color-bg: #ececed;
+    --color-surface: #ececed;
+    --color-text: #22262b;
+    --color-text-muted: #5b6169;
+    --color-accent: #c9722d;
+    --color-accent-dark: #a85c1f;
+    --color-border: #d8d8da;
+    --color-footer-bg: #22262b;
+    --color-footer-text: #d8d8da;
+    --scrim: rgba(18, 16, 14, 0.82);
+    --font-heading: Georgia, "Times New Roman", serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --max-width: 1100px;
+}
+
+/* ---- Reset ---- */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    text-align: justify;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: var(--color-accent-dark);
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    line-height: 1.2;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.25rem;
+}
+
+/* ---- Header / nav ---- */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.header-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0.9rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.brand {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 28px;
+    height: 22px;
+    cursor: pointer;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label::before,
+.nav-toggle-label::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 1px;
+}
+
+.site-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.5rem 1.25rem 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease;
+}
+
+.nav-toggle:checked ~ .site-nav {
+    max-height: 300px;
+}
+
+.site-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+.nav-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.lang-switch {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.lang-btn {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.lang-btn.active {
+    border-color: var(--color-accent);
+}
+
+.flag-icon {
+    width: 22px;
+    height: 15px;
+    border-radius: 2px;
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .nav-toggle-label {
+        display: none;
+    }
+
+    .site-nav {
+        position: static;
+        flex-direction: row;
+        align-items: center;
+        gap: 1.5rem;
+        max-height: none;
+        overflow: visible;
+        padding: 0;
+        border-bottom: none;
+        background: transparent;
+    }
+
+    .site-nav a {
+        padding: 0;
+    }
+
+    .lang-switch {
+        margin-top: 0;
+    }
+}
+
+/* ---- Footer ---- */
+.site-footer {
+    text-align: center;
+    padding: 2.5rem 1.25rem;
+    background: var(--color-footer-bg);
+    color: var(--color-footer-text);
+    font-size: 0.9rem;
+}
+
+.site-footer a {
+    color: var(--color-accent);
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.75rem;
+}
+
+.footer-links a {
+    display: inline-flex;
+}
+
+.footer-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.footer-disclaimer {
+    max-width: 620px;
+    margin: 1rem auto 0;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--color-footer-text);
+    opacity: 0.65;
+}
+
+.footer-copyright {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--color-footer-text);
+    opacity: 0.7;
+}
+
+/* ---- Cards (blog list, portfolio grid) ---- */
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2rem 1.25rem;
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1000px) {
+    .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card img {
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    width: 100%;
+}
+
+.card-body {
+    padding: 1rem 1.25rem 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+}
+
+.card p {
+    color: var(--color-text-muted);
+    flex: 1;
+}
+
+.card .card-link {
+    margin-top: 0.75rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* ---- Pagination ---- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem 3rem;
+}
+
+/* ---- Intro / profile summary ---- */
+.intro-section {
+    background: var(--color-surface);
+    padding: 3.5rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.intro-content {
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: var(--color-text);
+    text-align: center;
+}
+
+.intro-title {
+    margin: 0 0 1.5rem;
+    font-size: 2.5rem;
+}
+
+.intro-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 1.5rem;
+    border: 3px solid var(--color-border);
+}
+
+.intro-content p {
+    margin: 0 0 1rem;
+    text-align: justify;
+}
+
+.intro-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* ---- Timeline (scrollytelling) ---- */
+.experience-meta {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.timeline-bg-layer {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.6s ease, background-image 0.6s ease;
+}
+
+.timeline-bg-layer.visible {
+    opacity: 1;
+}
+
+/* Side timeline nav: a line of dots, one per experience, connected by short
+   segments. Desktop only — the scrim already uses most of the width on
+   narrower screens, no room for a side rail. */
+.timeline-dots {
+    display: none;
+    position: fixed;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timeline-dot {
+    width: 12px;
+    height: 12px;
+    margin: 16px 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    position: relative;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.timeline-dot:first-child {
+    margin-top: 0;
+}
+
+.timeline-dot:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 2px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateX(-50%);
+}
+
+.timeline-dot:last-child::after {
+    display: none;
+}
+
+.timeline-dot.active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    transform: scale(1.3);
+}
+
+@media (min-width: 900px) {
+    .timeline-dots {
+        display: flex;
+    }
+}
+
+.timeline-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.25rem;
+}
+
+.timeline-scrim {
+    background: var(--scrim);
+    color: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 900px;
+}
+
+@media (min-width: 640px) {
+    .timeline-scrim {
+        padding: 2.5rem 3rem;
+    }
+}
+
+.timeline-scrim h2 {
+    margin: 0 0 0.35rem;
+    font-size: clamp(1.3rem, 5vw, 2rem);
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.timeline-scrim .experience-meta {
+    color: #e8e2d8;
+}
+
+.company-line {
+    margin: 0 0 1rem;
+    text-align: left;
+}
+
+.company-name {
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
+    font-weight: 600;
+    color: #fff;
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+}
+
+a.company-name {
+    text-decoration: underline;
+}
+
+.company-description {
+    display: block;
+    color: #e8e2d8;
+    font-size: 0.95rem;
+    margin-top: 0.15rem;
+}
+
+.education-section {
+    background: var(--color-surface);
+    padding: 3rem 1.25rem;
+}
+
+.education-list {
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.education-item {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.education-item:last-child {
+    border-bottom: none;
+}
+
+.edu-title {
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 0 0.25rem;
+}
+
+.edu-field {
+    text-align: left;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 0 0.25rem;
+}
+
+.edu-institution {
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.evidence-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.evidence-list a {
+    color: #fff;
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+/* ---- Blog post body (CKEditor HTML) ---- */
+.post-body {
+    margin-top: 1.5rem;
+}
+
+.post-body img {
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
