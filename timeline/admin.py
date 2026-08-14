@@ -1,11 +1,13 @@
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
 
+from core.admin_mixins import TranslateAdminMixin
+
 from .models import Education, Evidence, Experience, Profile
 
 
 @admin.register(Profile)
-class ProfileAdmin(TranslationAdmin):
+class ProfileAdmin(TranslateAdminMixin, TranslationAdmin):
     list_display = ("__str__",)
 
 
@@ -15,7 +17,7 @@ class EvidenceInline(admin.TabularInline):
 
 
 @admin.register(Experience)
-class ExperienceAdmin(TranslationAdmin):
+class ExperienceAdmin(TranslateAdminMixin, TranslationAdmin):
     list_display = ("title", "company_name", "redact_company_name", "start_date", "end_date")
     list_filter = ("redact_company_name",)
     search_fields = ("title", "company_name", "company_description")
@@ -24,6 +26,6 @@ class ExperienceAdmin(TranslationAdmin):
 
 
 @admin.register(Education)
-class EducationAdmin(TranslationAdmin):
+class EducationAdmin(TranslateAdminMixin, TranslationAdmin):
     list_display = ("degree", "institution", "start_date", "end_date")
     ordering = ("-start_date",)
