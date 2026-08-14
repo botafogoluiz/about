@@ -7,6 +7,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-dev-key-change-in-pro
 
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
+# Used by core.ai_translate for the admin "Translate" button (PT -> EN).
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
 
 # Traefik terminates TLS and proxies plain HTTP to gunicorn, so Django needs

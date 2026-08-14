@@ -1,0 +1,25 @@
+.ai-translate-wrapper {
+    margin: 0 0 20px;
+}
+
+.ai-translate-btn {
+    background: #c0392b;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    cursor: pointer;
+}
+
+.ai-translate-btn:hover {
+    background: #a93226;
+}
+
+.ai-translate-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}

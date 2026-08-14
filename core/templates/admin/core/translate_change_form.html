@@ -1,0 +1,26 @@
+{% extends "admin/change_form.html" %}
+{% load i18n static admin_urls %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'core/css/admin_translate.css' %}">
+{% endblock %}
+
+{% block after_field_sets %}
+{{ block.super }}
+<div class="ai-translate-wrapper">
+    <button type="button" id="ai-translate-btn" class="ai-translate-btn">{% translate "Translate" %}</button>
+</div>
+{% endblock %}
+
+{% block admin_change_form_document_ready %}
+{{ block.super }}
+{{ ckeditor_field_names|json_script:"ckeditor-field-names" }}
+<script src="{% static 'core/js/ai_translate.js' %}"></script>
+<script>
+    window.aiTranslateInit({
+        translateUrl: "{% url opts|admin_urlname:'translate_fields' %}",
+        ckeditorFields: JSON.parse(document.getElementById('ckeditor-field-names').textContent)
+    });
+</script>
+{% endblock %}
