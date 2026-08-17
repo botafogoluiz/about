@@ -3,17 +3,6 @@ from django.utils import timezone
 from django.utils.text import slugify
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True)
-
-    class Meta:
-        verbose_name_plural = "categories"
-
-    def __str__(self):
-        return self.name
-
-
 class Tag(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(unique=True)
@@ -35,7 +24,6 @@ class Post(models.Model):
     # widget in admin.py instead (formfield_overrides).
     body = models.TextField()
     featured_image = models.ImageField(upload_to="blog/", blank=True, null=True)
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name="posts")
     tags = models.ManyToManyField(Tag, blank=True, related_name="posts")
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.DRAFT)
     published_date = models.DateTimeField(null=True, blank=True)

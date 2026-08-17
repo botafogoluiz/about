@@ -5,7 +5,7 @@
 
 {% block content %}
 <article class="container" style="max-width:720px;padding-top:2rem;padding-bottom:3rem;">
-    <p class="experience-meta" style="color:var(--color-text-muted);">{{ post.published_date|date:"F j, Y" }} · {{ post.category.name }}</p>
+    <p class="experience-meta" style="color:var(--color-text-muted);">{{ post.published_date|date:"F j, Y" }}</p>
     <h1>{{ post.title }}</h1>
     {% if post.featured_image %}
         <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" style="border-radius:8px;margin:1.5rem 0;">

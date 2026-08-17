@@ -5,24 +5,19 @@ from modeltranslation.admin import TranslationAdmin
 
 from core.admin_mixins import TranslateAdminMixin
 
-from .models import Category, Post, Tag
+from .models import Post, Tag
 
 
 @admin.register(Post)
 class PostAdmin(TranslateAdminMixin, TranslationAdmin):
-    list_display = ("title", "category", "status", "published_date")
-    list_filter = ("status", "category")
+    list_display = ("title", "status", "published_date")
+    list_filter = ("status",)
     search_fields = ("title", "excerpt")
     filter_horizontal = ("tags",)
     ordering = ("-published_date",)
     formfield_overrides = {
         models.TextField: {"widget": CKEditor5Widget(config_name="default")},
     }
-
-
-@admin.register(Category)
-class CategoryAdmin(TranslateAdminMixin, TranslationAdmin):
-    list_display = ("name", "slug")
 
 
 @admin.register(Tag)
