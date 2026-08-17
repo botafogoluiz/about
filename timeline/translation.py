@@ -1,6 +1,6 @@
 from modeltranslation.translator import TranslationOptions, register
 
-from .models import Education, Evidence, Experience, Profile
+from .models import Education, Evidence, Experience, Language, Profile
 
 
 @register(Profile)
@@ -21,3 +21,8 @@ class EducationTranslationOptions(TranslationOptions):
 @register(Evidence)
 class EvidenceTranslationOptions(TranslationOptions):
     fields = ("caption",)
+
+
+@register(Language)
+class LanguageTranslationOptions(TranslationOptions):
+    fields = ("name",)

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-14 20:07+0000\n"
+"POT-Creation-Date: 2026-08-17 14:19+0000\n"
 "PO-Revision-Date: 2026-08-13 18:03+0000\n"
 "Last-Translator: Luiz Silva <luiz.g.s.silva@gmail.com>\n"
 "Language-Team: Portuguese (Brazil)\n"
@@ -43,6 +43,10 @@ msgstr "Página %(current)s de %(total)s"
 msgid "Next"
 msgstr "Próxima"
 
+#: core/templates/admin/core/translate_change_form.html:12
+msgid "Translate"
+msgstr ""
+
 #: core/templates/base.html:18
 msgid "Menu"
 msgstr "Menu"
@@ -61,7 +65,7 @@ msgstr "Portfólio"
 msgid "Get in touch:"
 msgstr "Entre em contato:"
 
-#: core/templates/base.html:69
+#: core/templates/base.html:72
 msgid ""
 "This site's code was partly written with AI assistance — but every "
 "experience described here is real and written by Luiz Silva himself. Built "
@@ -81,6 +85,34 @@ msgstr "Ver projeto"
 #: portfolio/templates/portfolio/project_list.html:24
 msgid "Projects coming soon."
 msgstr "Projetos em breve."
+
+#: timeline/models.py:65
+msgid "Beginner (A1)"
+msgstr "Iniciante (A1)"
+
+#: timeline/models.py:66
+msgid "Elementary (A2)"
+msgstr "Básico (A2)"
+
+#: timeline/models.py:67
+msgid "Intermediate (B1)"
+msgstr "Intermediário (B1)"
+
+#: timeline/models.py:68
+msgid "Upper Intermediate (B2)"
+msgstr "Intermediário Superior (B2)"
+
+#: timeline/models.py:69
+msgid "Advanced (C1)"
+msgstr "Avançado (C1)"
+
+#: timeline/models.py:70
+msgid "Proficient (C2)"
+msgstr "Proficiente (C2)"
+
+#: timeline/models.py:71
+msgid "Native"
+msgstr "Nativo"
 
 #: timeline/templates/timeline/home.html:10
 msgid "About"
@@ -106,3 +138,7 @@ msgstr "Imagem"
 #: timeline/templates/timeline/home.html:74
 msgid "Education"
 msgstr "Formação"
+
+#: timeline/templates/timeline/home.html:93
+msgid "Languages"
+msgstr "Idiomas"

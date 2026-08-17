@@ -3,7 +3,7 @@ from modeltranslation.admin import TranslationAdmin
 
 from core.admin_mixins import TranslateAdminMixin
 
-from .models import Education, Evidence, Experience, Profile
+from .models import Education, Evidence, Experience, Language, Profile
 
 
 @admin.register(Profile)
@@ -29,3 +29,9 @@ class ExperienceAdmin(TranslateAdminMixin, TranslationAdmin):
 class EducationAdmin(TranslateAdminMixin, TranslationAdmin):
     list_display = ("degree", "institution", "start_date", "end_date")
     ordering = ("-start_date",)
+
+
+@admin.register(Language)
+class LanguageAdmin(TranslateAdminMixin, TranslationAdmin):
+    list_display = ("name", "proficiency")
+    ordering = ("-proficiency",)

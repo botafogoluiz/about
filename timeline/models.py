@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Profile(models.Model):
@@ -57,6 +58,26 @@ class Education(models.Model):
 
     def __str__(self):
         return f"{self.degree} — {self.institution}"
+
+
+class Language(models.Model):
+    class Proficiency(models.TextChoices):
+        A1 = "a1", _("Beginner (A1)")
+        A2 = "a2", _("Elementary (A2)")
+        B1 = "b1", _("Intermediate (B1)")
+        B2 = "b2", _("Upper Intermediate (B2)")
+        C1 = "c1", _("Advanced (C1)")
+        C2 = "c2", _("Proficient (C2)")
+        NATIVE = "native", _("Native")
+
+    name = models.CharField(max_length=100)
+    proficiency = models.CharField(max_length=10, choices=Proficiency.choices)
+
+    class Meta:
+        ordering = ["-proficiency"]
+
+    def __str__(self):
+        return f"{self.name} ({self.get_proficiency_display()})"
 
 
 class Evidence(models.Model):

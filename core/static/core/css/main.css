@@ -534,6 +534,45 @@ a.company-name {
     text-overflow: ellipsis;
 }
 
+.languages-section {
+    background: var(--color-surface);
+    padding: 3rem 1.25rem;
+}
+
+.languages-list {
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.language-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.language-item:last-child {
+    border-bottom: none;
+}
+
+.language-name {
+    font-size: clamp(1rem, 3.5vw, 1.15rem);
+    font-weight: 600;
+    text-align: left;
+}
+
+.language-proficiency {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    padding: 0.25rem 0.75rem;
+    white-space: nowrap;
+}
+
 .evidence-list {
     list-style: none;
     padding: 0;

@@ -86,6 +86,20 @@
         {% endfor %}
     </div>
 </section>
+
+{% if languages %}
+<section class="languages-section">
+    <div class="languages-list">
+        <h2>{% translate "Languages" %}</h2>
+        {% for lang in languages %}
+        <div class="language-item">
+            <span class="language-name">{{ lang.name }}</span>
+            <span class="language-proficiency">{{ lang.get_proficiency_display }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
 {% endblock %}
 
 {% block extra_body %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .models import Education, Experience, Profile
+from .models import Education, Experience, Language, Profile
 
 
 def timeline_home(request):
@@ -8,8 +8,14 @@ def timeline_home(request):
     profile = Profile.objects.first()
     experiences = Experience.objects.all()
     education = Education.objects.all()
+    languages = Language.objects.all()
     return render(
         request,
         "timeline/home.html",
-        {"profile": profile, "experiences": experiences, "education": education},
+        {
+            "profile": profile,
+            "experiences": experiences,
+            "education": education,
+            "languages": languages,
+        },
     )
